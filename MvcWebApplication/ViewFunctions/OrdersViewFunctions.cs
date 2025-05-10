@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -110,6 +110,14 @@ namespace MvcWebApplication.ViewFunctions
 		public async Task GetUserOrders(UserOrdersViewModel userOrdersViewModel, HttpContext httpContext)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<OrdersGetOrderDetailsViewModel> GetOrderDetailsViewModel(string orderId, string userId)
+		{
+			_logger.LogInformation($"Getting order details for orderId: {orderId}, userId: {userId}");
+			var viewModel = new OrdersGetOrderDetailsViewModel();
+
+			return viewModel;
 		}
 	}
 }

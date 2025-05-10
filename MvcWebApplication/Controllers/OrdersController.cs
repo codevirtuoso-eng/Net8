@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -66,12 +66,12 @@ namespace MvcWebApplication.Controllers
 			}
 		}
 
-		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> UserOrders(OrderSearch orderSearch)
+		[Authorize(Roles = "User, Admin")]
+		public async Task<IActionResult> UserOrders()
 		{
-			_logger.LogInformation($"UserOrders was called with orderSearch: {orderSearch}");
+			_logger.LogInformation("UserOrders was called");
 			var userOrdersViewModel = new UserOrdersViewModel();
-			userOrdersViewModel.OrderSearch = orderSearch;
+			
 
 			try
 			{
