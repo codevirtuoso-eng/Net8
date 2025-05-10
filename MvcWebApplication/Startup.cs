@@ -89,6 +89,11 @@ namespace MvcWebApplication
 			services.AddTransient<IOrdersViewFunctions, OrdersViewFunctions>();
 			services.AddTransient<IHomeViewFunctions, HomeViewFunctions>();
 			services.AddTransient<IMenuListingViewFunctions, MenuListingViewFunctions>();
+            services.AddScoped<IHomeViewFunctions, HomeViewFunctions>();
+            services.AddScoped<IMenuListingViewFunctions, MenuListingViewFunctions>();
+            services.AddScoped<IOrdersViewFunctions, OrdersViewFunctions>();
+            services.AddScoped<IShoppingViewFunctions, ShoppingViewFunctions>();
+            services.AddScoped<IShoppingCartViewFunctions, ShoppingCartViewFunctions>();
 
 			services.AddControllersWithViews(); // MVC controllers
 		}

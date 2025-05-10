@@ -1,7 +1,35 @@
-﻿
+
+﻿@model MvcWebApplication.ViewModels.Shopping.IndexViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Shop Menu Items";
 }
 
-<h4>Shop for something</h4>
+<h1>@ViewData["Title"]</h1>
 
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-danger">@Model.Message</div>
+}
+
+<div class="row">
+    @foreach (var item in Model.MenuItems)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
+                    <p class="card-text">Price: $@item.Cost.ToString("F2")</p>
+                    <form asp-controller="Shopping" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="itemId" value="@item.ItemId" />
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="100" />
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

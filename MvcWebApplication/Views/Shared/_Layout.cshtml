@@ -1,4 +1,4 @@
-﻿@using SharedLibrary.Enums
+@using SharedLibrary.Enums
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,25 +19,34 @@
 				</button>
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul id="userMenu" style="float:left" class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-						</li>
-						@if (User.Identity.IsAuthenticated && (User.IsInRole(Roles.User.ToString())))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Shopping" asp-action="Index">Shop</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Orders" asp-action="Index">Orders</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark">View Cart</a>
-							</li>
-						}
-					</ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            @if (User.IsInRole("User"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Shopping" asp-action="Index">Shop</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCarts" asp-action="Index">View Cart</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="UserOrders">My Orders</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="MenuListings" asp-action="Index">Manage Menu</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Manage Orders</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
 					<ul id="adminMenu" style="float:right" class="navbar-nav flex-grow-1">
 						@if (User.Identity.IsAuthenticated && (User.IsInRole(Roles.Admin.ToString())))
 						{
