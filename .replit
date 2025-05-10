@@ -65,4 +65,8 @@ args = "dotnet build"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "dotnet run --project MvcWebApplication"
+args = "cd MvcWebApplication"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet run"

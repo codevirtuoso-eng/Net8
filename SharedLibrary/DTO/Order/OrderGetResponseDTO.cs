@@ -1,52 +1,35 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SharedLibrary.DTO.Order
 {
 	public class OrderGetResponseDTO
 	{
-		[JsonPropertyName("orderId")] // helps with de-serialization
+		[Required]
+		[JsonPropertyName("orderId")]
 		public string OrderId { get; set; }
 
-		[JsonPropertyName("userid")]
+		[Required]
+		[JsonPropertyName("userId")]
 		public string UserId { get; set; }
 
-		[JsonPropertyName("ordertotal")]
-		public decimal OrderTotal { get; set; }
-
-		[JsonPropertyName("orderdate")]
+		[Required]
+		[JsonPropertyName("orderDate")]
 		public DateTime OrderDate { get; set; }
 
-		[JsonPropertyName("orderdetails")]
-		public List<OrderDetailGetResponseDTO> OrderDetails { get; set; } = new List<OrderDetailGetResponseDTO>();
+		[Required]
+		[JsonPropertyName("orderTotal")]
+		public decimal OrderTotal { get; set; }
 
-		public override string ToString()
+		[Required]
+		[JsonPropertyName("orderDetails")]
+		public List<OrderDetailGetResponseDTO> OrderDetails { get; set; }
+
+		public OrderGetResponseDTO()
 		{
-			return JsonSerializer.Serialize(this);
+			OrderDetails = new List<OrderDetailGetResponseDTO>();
 		}
 	}
-}
-﻿using System;
-using System.Collections.Generic;
-
-namespace SharedLibrary.DTO.Order
-{
-    public class OrderGetResponseDTO
-    {
-        public OrderGetResponseDTO()
-        {
-            OrderDetails = new List<OrderDetailGetResponseDTO>();
-        }
-
-        public string OrderId { get; set; }
-        public string UserId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public decimal OrderTotal { get; set; }
-        public List<OrderDetailGetResponseDTO> OrderDetails { get; set; }
-    }
 }

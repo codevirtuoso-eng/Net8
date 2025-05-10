@@ -97,7 +97,7 @@ namespace MvcWebApplication.Controllers
 
 			try
 			{
-				// need code here
+				await _ordersViewFunctions.GetOrderDetails(orderId, userId, getOrderDetailsViewModel, HttpContext);
 			}
 			catch (Exception ex)
 			{
@@ -106,7 +106,7 @@ namespace MvcWebApplication.Controllers
 				getOrderDetailsViewModel.Message = ex.Message;
 			}
 
-			return View(getOrderDetailsViewModel);
+			return View("OrderDetails", getOrderDetailsViewModel);
 		}
 
 		[Authorize(Roles = "User, Admin")]
