@@ -39,6 +39,10 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
+args = "dotnet tool install --global dotnet-ef --version 8.0.8"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
 args = "dotnet build"
 
 [[workflows.workflow.tasks]]

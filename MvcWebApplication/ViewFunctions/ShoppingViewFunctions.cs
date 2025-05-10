@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MvcWebApplication.Models;
 using MvcWebApplication.ViewModels.Shopping;
 using SharedLibrary.DTO.MenuListing;
 using SharedLibrary.DTO.ShoppingCart;
@@ -17,94 +17,157 @@ namespace MvcWebApplication.ViewFunctions
 {
     public class ShoppingViewFunctions : IShoppingViewFunctions
     {
-        private readonly ILogger<ShoppingViewFunctions> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<ShoppingViewFunctions> _logger;
 
-        public ShoppingViewFunctions(ILogger<ShoppingViewFunctions> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public ShoppingViewFunctions(
+            IHttpClientFactory clientFactory,
+            IConfiguration configuration,
+            ILogger<ShoppingViewFunctions> logger)
         {
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
+            _clientFactory = clientFactory;
             _configuration = configuration;
-            _logger.LogDebug("NLog injected into ShoppingViewFunctions");
+            _logger = logger;
         }
 
-        public async Task ProcessIndexRequest(IndexViewModel indexViewModel, HttpContext httpContext)
+        public async Task<IndexViewModel> GetIndexViewModel(string bearerToken)
         {
-            _logger.LogInformation($"ProcessIndexRequest was called with indexViewModel: {indexViewModel}");
-
-            // get token from the HttpContext so we can add it to the authorization header
-            var token = await httpContext.GetTokenAsync("access_token");
-            var username = httpContext.User.Identity.Name;
-
-            // Create search DTO with no filters to get all menu items
-            var menuListingSearchDTO = new MenuListingSearchRequestDTO();
-
-            // Serialize the data to be posted
-            var jsonSearch = JsonSerializer.Serialize(menuListingSearchDTO);
-            var data = new StringContent(jsonSearch, Encoding.UTF8, "application/json");
-
-            var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
-            var response = String.Empty;
-
-            // Create instance of HttpClientFactory
-            var client = _httpClientFactory.CreateClient("LocalClient");
-            client.BaseAddress = baseAddress;
-
-            // Add authorization header
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            HttpResponseMessage httpResponse = await client.PostAsync("/api/MenuListings/GetMenuListings", data);
-            httpResponse.EnsureSuccessStatusCode();
-            if (httpResponse.IsSuccessStatusCode)
+            try
             {
-                response = await httpResponse.Content.ReadAsStringAsync();
-            }
-
-            var results = JsonSerializer.Deserialize<List<MenuListingGetResponseDTO>>(response);
-
-            foreach (var item in results)
-            {
-                indexViewModel.MenuItems.Add(new Models.MenuListing()
+                var menuListings = await GetMenuListings(bearerToken);
+                var viewModel = new IndexViewModel
                 {
-                    ItemId = item.ItemId,
-                    Name = item.Name,
-                    Category = item.Category,
-                    Cost = item.Cost
-                });
+                    MenuListings = menuListings
+                };
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving shopping index view model");
+                return new IndexViewModel();
             }
         }
 
-        public async Task ProcessAddToCartRequest(int itemId, int quantity, HttpContext httpContext)
+        private async Task<List<MenuListing>> GetMenuListings(string bearerToken)
         {
-            _logger.LogInformation($"ProcessAddToCartRequest was called with itemId: {itemId}, quantity: {quantity}");
+            var client = _clientFactory.CreateClient();
+            var apiBaseUrl = _configuration["ApiBaseUrl"];
+            var requestUri = $"{apiBaseUrl}/api/MenuListings";
 
-            // get token from the HttpContext so we can add it to the authorization header
-            var token = await httpContext.GetTokenAsync("access_token");
-            var username = httpContext.User.Identity.Name;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
 
-            var createCartItemRequest = new ShoppingCartCreateRequestDTO
+            var response = await client.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
             {
-                MenuItemId = itemId,
-                Quantity = quantity,
-                UserId = username
-            };
+                var content = await response.Content.ReadAsStringAsync();
+                var dtos = JsonSerializer.Deserialize<List<MenuListingGetResponseDTO>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-            // Serialize the data to be posted
-            var jsonData = JsonSerializer.Serialize(createCartItemRequest);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var menuListings = new List<MenuListing>();
+                foreach (var dto in dtos)
+                {
+                    menuListings.Add(new MenuListing
+                    {
+                        Id = dto.Id,
+                        Name = dto.Name,
+                        Description = dto.Description,
+                        Price = dto.Price,
+                        Category = dto.Category
+                    });
+                }
 
-            var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
+                return menuListings;
+            }
 
-            // Create instance of HttpClientFactory
-            var client = _httpClientFactory.CreateClient("LocalClient");
-            client.BaseAddress = baseAddress;
+            return new List<MenuListing>();
+        }
 
-            // Add authorization header
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        public async Task<bool> AddItemToCart(int menuItemId, int quantity, string userId, string bearerToken)
+        {
+            try
+            {
+                var client = _clientFactory.CreateClient();
+                var apiBaseUrl = _configuration["ApiBaseUrl"];
+                var requestUri = $"{apiBaseUrl}/api/ShoppingCarts";
 
-            HttpResponseMessage httpResponse = await client.PostAsync("/api/ShoppingCarts/AddToCart", content);
-            httpResponse.EnsureSuccessStatusCode();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+                var createDto = new ShoppingCartCreateRequestDTO
+                {
+                    MenuListingId = menuItemId,  // Changed from MenuItemId
+                    Quantity = quantity,
+                    UserIdentifier = userId  // Changed from UserId
+                };
+
+                var json = JsonSerializer.Serialize(createDto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(requestUri, content);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error adding item to cart");
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveItemFromCart(int menuItemId, string userId, string bearerToken)
+        {
+            try
+            {
+                var client = _clientFactory.CreateClient();
+                var apiBaseUrl = _configuration["ApiBaseUrl"];
+                var requestUri = $"{apiBaseUrl}/api/ShoppingCarts/remove";
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+                var removeDto = new ShoppingCartRemoveRequestDTO
+                {
+                    MenuListingId = menuItemId,  // Changed from MenuItemId
+                    UserIdentifier = userId  // Changed from UserId
+                };
+
+                var json = JsonSerializer.Serialize(removeDto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(requestUri, content);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error removing item from cart");
+                return false;
+            }
+        }
+
+        public async Task<bool> EmptyCart(string userId, string bearerToken)
+        {
+            try
+            {
+                var client = _clientFactory.CreateClient();
+                var apiBaseUrl = _configuration["ApiBaseUrl"];
+                var requestUri = $"{apiBaseUrl}/api/ShoppingCarts/empty";
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+                var emptyDto = new ShoppingCartEmptyRequestDTO
+                {
+                    UserIdentifier = userId  // Changed from UserId
+                };
+
+                var json = JsonSerializer.Serialize(emptyDto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(requestUri, content);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error emptying cart");
+                return false;
+            }
         }
     }
 }

@@ -1,16 +1,12 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MvcWebApplication.Models;
 using MvcWebApplication.ViewModels.ShoppingCarts;
-using SharedLibrary.DTO.Order;
 using SharedLibrary.DTO.ShoppingCart;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -18,72 +14,97 @@ namespace MvcWebApplication.ViewFunctions
 {
     public class ShoppingCartViewFunctions : IShoppingCartViewFunctions
     {
-        private readonly ILogger<ShoppingCartViewFunctions> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<ShoppingCartViewFunctions> _logger;
 
-        public ShoppingCartViewFunctions(ILogger<ShoppingCartViewFunctions> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public ShoppingCartViewFunctions(
+            IHttpClientFactory clientFactory,
+            IConfiguration configuration,
+            ILogger<ShoppingCartViewFunctions> logger)
         {
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
+            _clientFactory = clientFactory;
             _configuration = configuration;
-            _logger.LogDebug("NLog injected into ShoppingCartViewFunctions");
+            _logger = logger;
         }
 
-        public async Task ProcessIndexRequest(IndexViewModel indexViewModel, HttpContext httpContext)
+        public async Task<IndexViewModel> GetIndexViewModel(string bearerToken, string userId)
         {
-            _logger.LogInformation($"ProcessIndexRequest was called with indexViewModel: {indexViewModel}");
+            try
+            {
+                var cartItems = await GetShoppingCartItems(bearerToken, userId);
+                decimal cartTotal = 0;
 
-            // get token from the HttpContext so we can add it to the authorization header
+                foreach (var item in cartItems)
+                {
+                    cartTotal += item.LineTotal;
+                }
+
+                var viewModel = new IndexViewModel
+                {
+                    CartItems = cartItems,
+                    CartTotal = cartTotal
+                };
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving shopping cart view model");
+                return new IndexViewModel();
+            }
+        }
+
+        private async Task<List<ShoppingCartItem>> GetShoppingCartItems(string bearerToken, string userId)
+        {
+            var client = _clientFactory.CreateClient();
+            var apiBaseUrl = _configuration["ApiBaseUrl"];
+            var requestUri = $"{apiBaseUrl}/api/ShoppingCarts/{userId}";
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+            var response = await client.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var cartDto = JsonSerializer.Deserialize<ShoppingCartGetResponseDTO>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                var cartItems = new List<ShoppingCartItem>();
+
+                // Assuming cartDto.Items is the collection of items in the cart
+                if (cartDto?.Items != null)
+                {
+                    foreach (var item in cartDto.Items)
+                    {
+                        cartItems.Add(new ShoppingCartItem
+                        {
+                            Id = item.MenuListingId,  // Adjust property name if needed
+                            Name = item.Name,
+                            Price = item.Price,
+                            Quantity = item.Quantity,
+                            LineTotal = item.Price * item.Quantity
+                        });
+                    }
+                }
+
+                return cartItems;
+            }
+
+            return new List<ShoppingCartItem>();
+        }
+
+        public async Task ProcessIndexRequest(IndexViewModel indexViewModel, Microsoft.AspNetCore.Http.HttpContext httpContext)
+        {
             var token = await httpContext.GetTokenAsync("access_token");
             var username = httpContext.User.Identity.Name;
 
-            // Create search request
-            var searchRequest = new ShoppingCartSearchRequestDTO
-            {
-                UserId = username
-            };
+            var viewModel = await GetIndexViewModel(token, username);
 
-            // Serialize the data to be posted
-            var jsonSearch = JsonSerializer.Serialize(searchRequest);
-            var data = new StringContent(jsonSearch, Encoding.UTF8, "application/json");
-
-            var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
-            var response = String.Empty;
-
-            // Create instance of HttpClientFactory
-            var client = _httpClientFactory.CreateClient("LocalClient");
-            client.BaseAddress = baseAddress;
-
-            // Add authorization header
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            HttpResponseMessage httpResponse = await client.PostAsync("/api/ShoppingCarts/GetCart", data);
-            httpResponse.EnsureSuccessStatusCode();
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                response = await httpResponse.Content.ReadAsStringAsync();
-            }
-
-            var results = JsonSerializer.Deserialize<List<ShoppingCartGetResponseDTO>>(response);
-
-            decimal total = 0;
-            foreach (var item in results)
-            {
-                indexViewModel.CartItems.Add(new ShoppingCartItem
-                {
-                    ItemId = item.ItemId,
-                    Name = item.Name,
-                    Quantity = item.Quantity,
-                    UnitPrice = item.UnitPrice,
-                    TotalPrice = item.UnitPrice * item.Quantity
-                });
-                total += item.UnitPrice * item.Quantity;
-            }
-            indexViewModel.TotalAmount = total;
+            indexViewModel.CartItems = viewModel.CartItems;
+            indexViewModel.TotalAmount = viewModel.CartTotal;
         }
 
-        public async Task ProcessRemoveItemRequest(int itemId, HttpContext httpContext)
+        public async Task ProcessRemoveItemRequest(int itemId, Microsoft.AspNetCore.Http.HttpContext httpContext)
         {
             _logger.LogInformation($"ProcessRemoveItemRequest was called with itemId: {itemId}");
 
@@ -91,30 +112,17 @@ namespace MvcWebApplication.ViewFunctions
             var token = await httpContext.GetTokenAsync("access_token");
             var username = httpContext.User.Identity.Name;
 
-            var removeRequest = new ShoppingCartRemoveRequestDTO
-            {
-                MenuItemId = itemId,
-                UserId = username
-            };
+            var client = _clientFactory.CreateClient();
+            var apiBaseUrl = _configuration["ApiBaseUrl"];
+            var requestUri = $"{apiBaseUrl}/api/ShoppingCarts/RemoveItem/{username}/{itemId}";
 
-            // Serialize the data to be posted
-            var jsonData = JsonSerializer.Serialize(removeRequest);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
-
-            // Create instance of HttpClientFactory
-            var client = _httpClientFactory.CreateClient("LocalClient");
-            client.BaseAddress = baseAddress;
-
-            // Add authorization header
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            HttpResponseMessage httpResponse = await client.PostAsync("/api/ShoppingCarts/RemoveItem", content);
-            httpResponse.EnsureSuccessStatusCode();
+            var response = await client.PostAsync(requestUri, null);
+            response.EnsureSuccessStatusCode();
         }
 
-        public async Task ProcessEmptyCartRequest(HttpContext httpContext)
+        public async Task ProcessEmptyCartRequest(Microsoft.AspNetCore.Http.HttpContext httpContext)
         {
             _logger.LogInformation($"ProcessEmptyCartRequest was called");
 
@@ -122,29 +130,17 @@ namespace MvcWebApplication.ViewFunctions
             var token = await httpContext.GetTokenAsync("access_token");
             var username = httpContext.User.Identity.Name;
 
-            var emptyRequest = new ShoppingCartEmptyRequestDTO
-            {
-                UserId = username
-            };
+            var client = _clientFactory.CreateClient();
+            var apiBaseUrl = _configuration["ApiBaseUrl"];
+            var requestUri = $"{apiBaseUrl}/api/ShoppingCarts/EmptyCart/{username}";
 
-            // Serialize the data to be posted
-            var jsonData = JsonSerializer.Serialize(emptyRequest);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
-
-            // Create instance of HttpClientFactory
-            var client = _httpClientFactory.CreateClient("LocalClient");
-            client.BaseAddress = baseAddress;
-
-            // Add authorization header
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            HttpResponseMessage httpResponse = await client.PostAsync("/api/ShoppingCarts/EmptyCart", content);
-            httpResponse.EnsureSuccessStatusCode();
+            var response = await client.PostAsync(requestUri, null);
+            response.EnsureSuccessStatusCode();
         }
 
-        public async Task ProcessCheckoutRequest(HttpContext httpContext)
+        public async Task ProcessCheckoutRequest(Microsoft.AspNetCore.Http.HttpContext httpContext)
         {
             _logger.LogInformation($"ProcessCheckoutRequest was called");
 
@@ -152,26 +148,14 @@ namespace MvcWebApplication.ViewFunctions
             var token = await httpContext.GetTokenAsync("access_token");
             var username = httpContext.User.Identity.Name;
 
-            var orderRequest = new OrderCreateRequestDTO
-            {
-                UserId = username
-            };
+            var client = _clientFactory.CreateClient();
+            var apiBaseUrl = _configuration["ApiBaseUrl"];
+            var requestUri = $"{apiBaseUrl}/api/Orders/CreateOrder/{username}";
 
-            // Serialize the data to be posted
-            var jsonData = JsonSerializer.Serialize(orderRequest);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
-
-            // Create instance of HttpClientFactory
-            var client = _httpClientFactory.CreateClient("LocalClient");
-            client.BaseAddress = baseAddress;
-
-            // Add authorization header
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            HttpResponseMessage httpResponse = await client.PostAsync("/api/Orders/CreateOrder", content);
-            httpResponse.EnsureSuccessStatusCode();
+            var response = await client.PostAsync(requestUri, null);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

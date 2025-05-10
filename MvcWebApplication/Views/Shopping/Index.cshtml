@@ -1,34 +1,43 @@
+
 @model MvcWebApplication.ViewModels.Shopping.IndexViewModel
 @{
-    ViewData["Title"] = "Shop Menu Items";
+    ViewData["Title"] = "Shopping Page";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Food Menu</h1>
+    <p>Select from our delicious menu options.</p>
+</div>
 
-@if (!string.IsNullOrEmpty(Model.Message))
+@if (Model.MenuListings != null && Model.MenuListings.Any())
 {
-    <div class="alert alert-danger">@Model.Message</div>
-}
-
-<div class="row">
-    @foreach (var item in Model.MenuItems)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
-                    <p class="card-text">Price: $@item.Cost.ToString("F2")</p>
-                    <form asp-controller="Shopping" asp-action="AddToCart" method="post">
-                        <input type="hidden" name="itemId" value="@item.ItemId" />
-                        <div class="form-group">
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="100" />
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
-                    </form>
+    <div class="row">
+        @foreach (var item in Model.MenuListings)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">Price: $@item.Price.ToString("F2")</p>
+                        <p class="card-text">Category: @item.Category</p>
+                    </div>
+                    <div class="card-footer">
+                        <form asp-controller="Shopping" asp-action="AddToCart" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="10" />
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <p>No menu items available.</p>
+}
