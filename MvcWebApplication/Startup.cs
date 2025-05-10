@@ -61,7 +61,7 @@ namespace MvcWebApplication
 							context.Token = context.Request.Cookies["X-Access-Token"];
 							if (!context.Request.Headers.ContainsKey("Authorization"))
 							{
-								context.Request.Headers.Add("Authorization", "Bearer " + context.Token);
+								context.Request.Headers["Authorization"] = "Bearer " + context.Token;
 							}
 						}
 						return Task.CompletedTask;
@@ -117,11 +117,7 @@ namespace MvcWebApplication
 				if (context.Request.Cookies.ContainsKey("X-Access-Token"))
 				{
 					var accessToken = context.Request.Cookies["X-Access-Token"];
-					if (!context.Request.Headers.ContainsKey("Authorization"))
-					{
-						context.Request.Headers.Add("Authorization", "Bearer " + accessToken);
-					}
-					//context.Request.Headers.Add("Authorization", "Bearer " + accessToken);
+					context.Request.Headers["Authorization"] = "Bearer " + accessToken;
 				}
 
 				await next();

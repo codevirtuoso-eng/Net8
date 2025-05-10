@@ -1,5 +1,4 @@
-
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -42,7 +41,7 @@ namespace MvcWebApplication.ViewFunctions
             // Create search request
             var searchRequest = new ShoppingCartSearchRequestDTO
             {
-                Username = username
+                UserId = username
             };
 
             // Serialize the data to be posted
@@ -94,8 +93,8 @@ namespace MvcWebApplication.ViewFunctions
 
             var removeRequest = new ShoppingCartRemoveRequestDTO
             {
-                ItemId = itemId,
-                Username = username
+                MenuItemId = itemId,
+                UserId = username
             };
 
             // Serialize the data to be posted
@@ -125,7 +124,7 @@ namespace MvcWebApplication.ViewFunctions
 
             var emptyRequest = new ShoppingCartEmptyRequestDTO
             {
-                Username = username
+                UserId = username
             };
 
             // Serialize the data to be posted
@@ -155,7 +154,7 @@ namespace MvcWebApplication.ViewFunctions
 
             var orderRequest = new OrderCreateRequestDTO
             {
-                Username = username
+                UserId = username
             };
 
             // Serialize the data to be posted

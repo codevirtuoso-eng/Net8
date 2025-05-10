@@ -1,5 +1,4 @@
-
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -84,15 +83,15 @@ namespace MvcWebApplication.ViewFunctions
             var token = await httpContext.GetTokenAsync("access_token");
             var username = httpContext.User.Identity.Name;
 
-            var cartRequest = new ShoppingCartCreateRequestDTO
+            var createCartItemRequest = new ShoppingCartCreateRequestDTO
             {
-                ItemId = itemId,
+                MenuItemId = itemId,
                 Quantity = quantity,
-                Username = username
+                UserId = username
             };
 
             // Serialize the data to be posted
-            var jsonData = JsonSerializer.Serialize(cartRequest);
+            var jsonData = JsonSerializer.Serialize(createCartItemRequest);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             var baseAddress = new Uri(_configuration.GetValue<string>("Misc:BaseWebApiUrl"));
