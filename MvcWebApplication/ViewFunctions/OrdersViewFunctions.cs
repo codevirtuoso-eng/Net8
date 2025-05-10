@@ -178,7 +178,7 @@ namespace MvcWebApplication.ViewFunctions
 					getOrderDetailsViewModel.OrderDetails.Add(new OrderDetail
 					{
 						OrderId = orderId,
-						ItemId = detailDto.ItemId,
+						ItemId = detailDto.ItemId.ToString(),
 						Name = detailDto.Name,
 						Cost = detailDto.Cost,
 						Quantity = detailDto.Quantity,
@@ -333,7 +333,7 @@ namespace MvcWebApplication.ViewFunctions
 					{
 						OrderId = orderId,
 						OrderDetailId = detailDto.OrderDetailId,
-						ItemId = detailDto.ItemId,
+						ItemId = detailDto.ItemId.ToString(),
 						Name = detailDto.Name,
 						Cost = detailDto.Cost,
 						Quantity = detailDto.Quantity,

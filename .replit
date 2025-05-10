@@ -61,6 +61,10 @@ args = "export PATH=\"$PATH:/home/runner/.dotnet/tools\""
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
+args = "dotnet restore"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
 args = "dotnet build"
 
 [[workflows.workflow.tasks]]
