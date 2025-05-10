@@ -1,8 +1,9 @@
-﻿using DatabaseAccess.Data.EntityModels;
+using DatabaseAccess.Data.EntityModels;
 using DatabaseAccess.Data.Interfaces;
 using Microsoft.Extensions.Logging;
 using SharedLibrary.Common.Models;
 using SharedLibrary.DTO.Order;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -53,14 +54,58 @@ namespace WebAppAPI.ApiFunctions
 			return dtoList;
 		}
 
-		public Task<OrderGetResponseDTO> GetOrderDetails(OrderGetRequestDTO orderGetRequestDTO)
+		public async Task<OrderGetResponseDTO> GetOrderDetails(OrderGetRequestDTO orderGetRequestDTO)
 		{
-			throw new System.NotImplementedException();
+			_logger.LogInformation($"GetOrderDetails was called with orderGetRequestDTO: {orderGetRequestDTO}");
+
+			var orderDetails = await _orderData.GetOrderDetails(orderGetRequestDTO.OrderId);
+
+			if (orderDetails == null)
+			{
+				return null;
+			}
+
+			var orderGetResponseDTO = new OrderGetResponseDTO
+			{
+				OrderId = orderDetails.OrderId,
+				UserId = orderDetails.UserId,
+				OrderDate = orderDetails.OrderDate,
+				OrderTotal = orderDetails.OrderTotal,
+				OrderDetails = new List<OrderDetailGetResponseDTO>()
+			};
+
+			if (orderDetails.OrderDetails != null)
+			{
+				foreach (var detail in orderDetails.OrderDetails)
+				{
+					orderGetResponseDTO.OrderDetails.Add(new OrderDetailGetResponseDTO
+					{
+						OrderDetailId = detail.OrderDetailId,
+						OrderId = detail.OrderId,
+						ItemId = detail.ItemId,
+						Name = detail.Name,
+						Category = detail.Category,
+						Cost = detail.Cost,
+						Quantity = detail.Quantity
+					});
+				}
+			}
+
+			return orderGetResponseDTO;
 		}
 
-		public Task CreateOrder(OrderCreateRequestDTO orderCreateRequestDTO)
+		public async Task CreateOrder(OrderCreateRequestDTO orderCreateRequestDTO)
 		{
-			throw new System.NotImplementedException();
+			_logger.LogInformation($"CreateOrder was called with orderCreateRequestDTO: {orderCreateRequestDTO}");
+
+			// Validate order request
+			if (orderCreateRequestDTO == null || string.IsNullOrEmpty(orderCreateRequestDTO.UserId))
+			{
+				throw new ArgumentException("Invalid order request");
+			}
+
+			// Convert DTO to data layer model and create the order
+			await _orderData.CreateOrder(orderCreateRequestDTO.UserId);
 		}
 	}
 }

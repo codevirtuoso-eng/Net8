@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +54,19 @@ namespace WebAppAPI.Apis
 		[Route("CreateOrder")]
 		public async Task<ActionResult> CreateOrder(OrderCreateRequestDTO orderCreateRequestDTO)
 		{
-			return Ok();
+			_logger.LogInformation($"CreateOrder was called with orderCreateRequestDTO: {orderCreateRequestDTO}");
+
+			try
+			{
+				await _ordersFunction.CreateOrder(orderCreateRequestDTO);
+				return Ok(new { responseText = "Order created successfully" });
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "Error occurred creating order.");
+				var responseObject = new { responseText = ex.Message };
+				return StatusCode(StatusCodes.Status500InternalServerError, responseObject);
+			}
 		}
 
 		[Authorize(Roles = "User, Admin")] // prefer to use enums, but requires custom attribute
@@ -62,7 +74,19 @@ namespace WebAppAPI.Apis
 		[Route("GetOrder")]
 		public async Task<ActionResult> GetOrderDetails(OrderGetRequestDTO orderGetRequestDTO)
 		{
-			return Ok();
+			_logger.LogInformation($"GetOrderDetails was called with orderGetRequestDTO: {orderGetRequestDTO}");
+
+			try
+			{
+				var result = await _ordersFunction.GetOrderDetails(orderGetRequestDTO);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "Error occurred getting order details.");
+				var responseObject = new { responseText = ex.Message };
+				return StatusCode(StatusCodes.Status500InternalServerError, responseObject);
+			}
 		}
 
 		[Authorize(Roles = "User, Admin")] // prefer to use enums, but requires custom attribute

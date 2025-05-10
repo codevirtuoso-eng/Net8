@@ -95,6 +95,7 @@ namespace WebAppAPI
             services.AddTransient<IOrdersFunctions, OrdersFunctions>();
             services.AddTransient<IUsersFunctions, UsersFunctions>();
             services.AddTransient<IMenuListingsFunctions, MenuListingsFunctions>();
+            services.AddTransient<IShoppingCartFunctions, ShoppingCartFunctions>();
 
             services.AddControllers(); // API controllers
 

@@ -1,8 +1,10 @@
-﻿using DatabaseAccess.Data.EntityModels;
+
+using DatabaseAccess.Data.EntityModels;
 using DatabaseAccess.Data.Interfaces;
 using Microsoft.Extensions.Logging;
 using SharedLibrary.Common.Models;
 using SharedLibrary.DTO.MenuListing;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,28 +26,56 @@ namespace WebAppAPI.ApiFunctions
 		{
 			_logger.LogInformation($"GetMenuListings was called with menuListingSearchRequestDTO: {menuListingSearchRequestDTO}");
 
-			List<MenuListingGetResponseDTO> menuListingList = new List<MenuListingGetResponseDTO>();
-
-			var menulistingSearch = new MenuListingSearch()
+			var menuListingSearch = new MenuListingSearch()
 			{
-				Category = menuListingSearchRequestDTO.Category
+				Category = menuListingSearchRequestDTO.Category,
+				Name = menuListingSearchRequestDTO.Name
 			};
 
-			var dbMenuListingList = await _menuListingData.GetMenuListings(menulistingSearch);
+			var menuListingsDAO = await _menuListingData.GetMenuListings(menuListingSearch);
 
-			foreach (var item in dbMenuListingList)
+			List<MenuListingGetResponseDTO> menuListingDTOs = new List<MenuListingGetResponseDTO>();
+
+			foreach (var item in menuListingsDAO)
 			{
-				MenuListingGetResponseDTO menuListingGetResponseDTO = new MenuListingGetResponseDTO()
+				var menuListing = new MenuListingGetResponseDTO()
 				{
 					ItemId = item.ItemId,
 					Name = item.Name,
+					Description = item.Description,
 					Category = item.Category,
-					Cost = item.Cost
+					Cost = item.Cost,
+					ImageUrl = item.ImageUrl
 				};
-				menuListingList.Add(menuListingGetResponseDTO);
+
+				menuListingDTOs.Add(menuListing);
 			}
 
-			return menuListingList;
+			return menuListingDTOs;
+		}
+
+		public async Task<MenuListingGetResponseDTO> GetMenuListing(MenuListingGetRequestDTO menuListingGetRequestDTO)
+		{
+			_logger.LogInformation($"GetMenuListing was called with menuListingGetRequestDTO: {menuListingGetRequestDTO}");
+
+			var menuListingDAO = await _menuListingData.GetMenuListing(menuListingGetRequestDTO.ItemId);
+
+			if (menuListingDAO == null)
+			{
+				return null;
+			}
+
+			var menuListing = new MenuListingGetResponseDTO()
+			{
+				ItemId = menuListingDAO.ItemId,
+				Name = menuListingDAO.Name,
+				Description = menuListingDAO.Description,
+				Category = menuListingDAO.Category,
+				Cost = menuListingDAO.Cost,
+				ImageUrl = menuListingDAO.ImageUrl
+			};
+
+			return menuListing;
 		}
 
 		public async Task<MenuListingCreateResponseDTO> CreateMenuListing(MenuListingCreateRequestDTO menuListingCreateRequestDTO)
@@ -54,48 +84,47 @@ namespace WebAppAPI.ApiFunctions
 
 			var menuListingDAO = new MenuListingDAO()
 			{
-				ItemId = menuListingCreateRequestDTO.ItemId,
 				Name = menuListingCreateRequestDTO.Name,
+				Description = menuListingCreateRequestDTO.Description,
 				Category = menuListingCreateRequestDTO.Category,
-				Cost = menuListingCreateRequestDTO.Cost
+				Cost = menuListingCreateRequestDTO.Cost,
+				ImageUrl = menuListingCreateRequestDTO.ImageUrl
 			};
 
-			await _menuListingData.CreateMenuListing(menuListingDAO);
+			var result = await _menuListingData.CreateMenuListing(menuListingDAO);
 
-			var menuListingCreateResponseDTO = new MenuListingCreateResponseDTO()
+			var response = new MenuListingCreateResponseDTO()
 			{
-				ItemId = menuListingDAO.ItemId
+				ItemId = result.ItemId,
+				Name = result.Name,
+				Description = result.Description,
+				Category = result.Category,
+				Cost = result.Cost,
+				ImageUrl = result.ImageUrl
 			};
 
-			return menuListingCreateResponseDTO;
-		}
-
-		public async Task<MenuListingGetResponseDTO> GetMenuListing(MenuListingGetRequestDTO menuListingGetRequestDTO)
-		{
-			_logger.LogInformation($"GetMenuListing was called with itemId: {menuListingGetRequestDTO}");
-			var menuListingDAO = await _menuListingData.GetMenuListing(menuListingGetRequestDTO.ItemId);
-
-			var menuListingResponseDTO = new MenuListingGetResponseDTO()
-			{
-				ItemId = menuListingDAO.ItemId,
-				Name = menuListingDAO.Name,
-				Category = menuListingDAO.Category,
-				Cost = menuListingDAO.Cost
-			};
-
-			return menuListingResponseDTO;
+			return response;
 		}
 
 		public async Task UpdateMenuListing(MenuListingUpdateRequestDTO menuListingUpdateRequestDTO)
 		{
 			_logger.LogInformation($"UpdateMenuListing was called with menuListingUpdateRequestDTO: {menuListingUpdateRequestDTO}");
 
+			// First check if the menu listing exists
+			var existingMenuItem = await _menuListingData.GetMenuListing(menuListingUpdateRequestDTO.ItemId);
+			if (existingMenuItem == null)
+			{
+				throw new ArgumentException($"Menu item with ID {menuListingUpdateRequestDTO.ItemId} not found");
+			}
+
 			var menuListingDAO = new MenuListingDAO()
 			{
 				ItemId = menuListingUpdateRequestDTO.ItemId,
 				Name = menuListingUpdateRequestDTO.Name,
+				Description = menuListingUpdateRequestDTO.Description,
 				Category = menuListingUpdateRequestDTO.Category,
-				Cost = menuListingUpdateRequestDTO.Cost
+				Cost = menuListingUpdateRequestDTO.Cost,
+				ImageUrl = menuListingUpdateRequestDTO.ImageUrl
 			};
 
 			await _menuListingData.UpdateMenuListing(menuListingDAO);
@@ -104,6 +133,14 @@ namespace WebAppAPI.ApiFunctions
 		public async Task DeleteMenuListing(MenuListingDeleteRequestDTO menuListingDeleteRequestDTO)
 		{
 			_logger.LogInformation($"DeleteMenuListing was called with menuListingDeleteRequestDTO: {menuListingDeleteRequestDTO}");
+
+			// First check if the menu listing exists
+			var existingMenuItem = await _menuListingData.GetMenuListing(menuListingDeleteRequestDTO.ItemId);
+			if (existingMenuItem == null)
+			{
+				throw new ArgumentException($"Menu item with ID {menuListingDeleteRequestDTO.ItemId} not found");
+			}
+
 			await _menuListingData.DeleteMenuListing(menuListingDeleteRequestDTO.ItemId);
 		}
 	}

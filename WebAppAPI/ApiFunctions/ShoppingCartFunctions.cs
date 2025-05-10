@@ -1,4 +1,4 @@
-﻿using DatabaseAccess.Data.Interfaces;
+using DatabaseAccess.Data.Interfaces;
 using Microsoft.Extensions.Logging;
 using SharedLibrary.Common.Models;
 using SharedLibrary.DTO.ShoppingCart;
@@ -51,6 +51,53 @@ namespace WebAppAPI.ApiFunctions
 			}
 
 			return shoppingCartList;
+		}
+
+		public async Task AddToCart(ShoppingCartCreateRequestDTO shoppingCartCreateRequestDTO)
+		{
+			_logger.LogInformation($"AddToCart was called with shoppingCartCreateRequestDTO: {shoppingCartCreateRequestDTO}");
+
+			// Validate the request
+			if (shoppingCartCreateRequestDTO == null || string.IsNullOrEmpty(shoppingCartCreateRequestDTO.UserId))
+			{
+				throw new System.ArgumentException("Invalid shopping cart request");
+			}
+
+			// First, check if the menu item exists
+			var menuItem = await _menuListingData.GetMenuListing(shoppingCartCreateRequestDTO.ItemId);
+			if (menuItem == null)
+			{
+				throw new System.ArgumentException("Menu item not found");
+			}
+
+			// Add to cart
+			await _shoppingCartData.AddItemToCart(shoppingCartCreateRequestDTO.UserId, shoppingCartCreateRequestDTO.ItemId);
+		}
+
+		public async Task RemoveFromCart(ShoppingCartRemoveRequestDTO shoppingCartRemoveRequestDTO)
+		{
+			_logger.LogInformation($"RemoveFromCart was called with shoppingCartRemoveRequestDTO: {shoppingCartRemoveRequestDTO}");
+
+			// Validate the request
+			if (shoppingCartRemoveRequestDTO == null || string.IsNullOrEmpty(shoppingCartRemoveRequestDTO.UserId))
+			{
+				throw new System.ArgumentException("Invalid shopping cart request");
+			}
+
+			await _shoppingCartData.RemoveItemFromCart(shoppingCartRemoveRequestDTO.UserId, shoppingCartRemoveRequestDTO.CartId);
+		}
+
+		public async Task EmptyCart(ShoppingCartEmptyRequestDTO shoppingCartEmptyRequestDTO)
+		{
+			_logger.LogInformation($"EmptyCart was called with shoppingCartEmptyRequestDTO: {shoppingCartEmptyRequestDTO}");
+
+			// Validate the request
+			if (shoppingCartEmptyRequestDTO == null || string.IsNullOrEmpty(shoppingCartEmptyRequestDTO.UserId))
+			{
+				throw new System.ArgumentException("Invalid shopping cart request");
+			}
+
+			await _shoppingCartData.EmptyCart(shoppingCartEmptyRequestDTO.UserId);
 		}
 	}
 }

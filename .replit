@@ -6,3 +6,19 @@ channel = "stable-24_05"
 
 [deployment]
 run = ["sh", "-c", "dotnet run"]
+
+[workflows]
+runButton = "Run WebAppAPI"
+
+[[workflows.workflow]]
+name = "Run WebAppAPI"
+author = 33598459
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd WebAppAPI"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet run"
