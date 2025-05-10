@@ -1,0 +1,175 @@
+#12 23.46 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(53,31): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+
+May 11 12:00:08 AM
+
+
+
+#12 23.46 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(60,43): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+
+May 11 12:00:08 AM
+
+
+
+#12 23.46 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(67,21): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+
+May 11 12:00:08 AM
+
+
+
+#12 23.55   DatabaseAccess -> /src/DatabaseAccess/bin/Release/net8.0/DatabaseAccess.dll
+
+May 11 12:00:11 AM
+
+
+
+#12 26.18 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(18,42): error CS0535: 'ShoppingViewFunctions' does not implement interface member 'IShoppingViewFunctions.ProcessIndexRequest(IndexViewModel, HttpContext)' [/src/MvcWebApplication/MvcWebApplication.csproj]
+
+May 11 12:00:11 AM
+
+
+
+#12 26.18 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(18,42): error CS0535: 'ShoppingViewFunctions' does not implement interface member 'IShoppingViewFunctions.ProcessAddToCartRequest(int, int, HttpContext)' [/src/MvcWebApplication/MvcWebApplication.csproj]
+
+May 11 12:00:11 AM
+
+
+
+#12 ERROR: process "/bin/sh -c dotnet publish -c Release -o /app/publish" did not complete successfully: exit code: 1
+
+May 11 12:00:11 AM
+
+
+
+------
+
+May 11 12:00:11 AM
+
+
+
+ > [build 5/5] RUN dotnet publish -c Release -o /app/publish:
+
+May 11 12:00:11 AM
+
+
+
+2.103   Restored /src/SharedLibrary/SharedLibrary.csproj (in 102 ms).
+
+May 11 12:00:11 AM
+
+
+
+6.440   Restored /src/DatabaseAccess/DatabaseAccess.csproj (in 4.45 sec).
+
+May 11 12:00:11 AM
+
+
+
+19.55   Restored /src/MvcWebApplication/MvcWebApplication.csproj (in 17.3 sec).
+
+May 11 12:00:11 AM
+
+
+
+22.80   SharedLibrary -> /src/SharedLibrary/bin/Release/net8.0/SharedLibrary.dll
+
+May 11 12:00:11 AM
+
+
+
+23.46 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(53,31): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+
+May 11 12:00:11 AM
+
+
+
+23.46 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(60,43): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+
+May 11 12:00:11 AM
+
+
+
+23.46 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(67,21): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+
+May 11 12:00:11 AM
+
+
+
+23.55   DatabaseAccess -> /src/DatabaseAccess/bin/Release/net8.0/DatabaseAccess.dll
+
+May 11 12:00:11 AM
+
+
+
+26.18 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(18,42): error CS0535: 'ShoppingViewFunctions' does not implement interface member 'IShoppingViewFunctions.ProcessIndexRequest(IndexViewModel, HttpContext)' [/src/MvcWebApplication/MvcWebApplication.csproj]
+
+May 11 12:00:11 AM
+
+
+
+26.18 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(18,42): error CS0535: 'ShoppingViewFunctions' does not implement interface member 'IShoppingViewFunctions.ProcessAddToCartRequest(int, int, HttpContext)' [/src/MvcWebApplication/MvcWebApplication.csproj]
+
+May 11 12:00:11 AM
+
+
+
+------
+
+May 11 12:00:11 AM
+
+
+
+Dockerfile:6
+
+May 11 12:00:11 AM
+
+
+
+--------------------
+
+May 11 12:00:11 AM
+
+
+
+   4 |     COPY . .
+
+May 11 12:00:11 AM
+
+
+
+   5 |     WORKDIR /src/MvcWebApplication
+
+May 11 12:00:11 AM
+
+
+
+   6 | >>> RUN dotnet publish -c Release -o /app/publish
+
+May 11 12:00:11 AM
+
+
+
+   7 |     
+
+May 11 12:00:11 AM
+
+
+
+   8 |     # Stage 2: Run
+
+May 11 12:00:11 AM
+
+
+
+--------------------
+
+May 11 12:00:11 AM
+
+
+
+error: failed to solve: process "/bin/sh -c dotnet publish -c Release -o /app/publish" did not complete successfully: exit code: 1
+
+
+
+
+
+these are the new errors.
