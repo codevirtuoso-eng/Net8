@@ -1,0 +1,56 @@
+
+@model MvcWebApplication.ViewModels.Orders.GetOrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h1>Order Details</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Order #@Model.OrderId</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <strong>Order Date:</strong> @Model.OrderDate.ToString("MM/dd/yyyy")
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Order Total:</strong> $@Model.OrderTotal.ToString("F2")
+                        </div>
+                    </div>
+                    
+                    <h5>Order Items</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderDetails)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>$@item.Cost.ToString("F2")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>$@item.LineTotal.ToString("F2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="@(Model.SearchSource == "Index" ? "/Orders/Index" : "/Orders/UserOrders")" class="btn btn-primary">Back to Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

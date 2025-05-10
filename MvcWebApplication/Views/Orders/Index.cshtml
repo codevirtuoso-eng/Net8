@@ -1,80 +1,83 @@
-﻿@model MvcWebApplication.ViewModels.Orders.IndexViewModel
+
+@model MvcWebApplication.ViewModels.Orders.IndexViewModel
 
 @{
-	ViewData["Title"] = "Search Orders";
+    ViewData["Title"] = "Orders";
 }
 
-<h4>Search Orders</h4>
+<h1>Orders</h1>
 
-@{
-	if (Model.Message.Length > 0)
-	{
-		<div class="text-danger">@Model.Message</div>
-	}
-}
-
-<form id="Search" asp-controller="Orders" asp-action="Index" method='POST' autocomplete="off">
-	<div class="form-group">
-		<div class="divInline">
-			<div style="padding-bottom: 5px;">
-				<label asp-for="OrderSearch.BeginOrderDate" class="control-label"></label>
-				<input type="date" asp-for="OrderSearch.BeginOrderDate" asp-format="{0:yyyy-MM-dd}">
-				<label asp-for="OrderSearch.EndOrderDate" class="control-label"></label>
-				<input type="date" asp-for="OrderSearch.EndOrderDate" asp-format="{0:yyyy-MM-dd}">
-				<button type="submit">Search</button>
-			</div>
-		</div>
-	</div>
-</form>
-
-@if (Model.OrderList.Count > 0)
-{
-	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					User Id
-				</th>
-				<th style="padding-right: 15px">
-					OrderId
-				</th>
-				<th style="padding-right: 15px">
-					Order Total
-				</th>
-				<th style="padding-right: 15px">
-					Order Date
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var order in Model.OrderList)
-			{
-				<tr>
-					<td>
-						@order.UserId
-					</td>
-					<td>
-						@order.OrderId
-					</td>
-					<td>
-						@order.OrderTotal
-					</td>
-					<td>
-						@order.OrderDate
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
-}
-else
-{
-	<table class="displayList">
-		<tr>
-			<td style="width:100%;">
-				There are no orders.
-			</td>
-		</tr>
-	</table>
-}
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <div class="alert alert-info">@Model.Message</div>
+            }
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Search Orders</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index" method="post">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="OrderSearch.BeginOrderDate">Begin Date</label>
+                                <input asp-for="OrderSearch.BeginOrderDate" class="form-control" type="date" />
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="OrderSearch.EndOrderDate">End Date</label>
+                                <input asp-for="OrderSearch.EndOrderDate" class="form-control" type="date" />
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>Order Results</h4>
+                    <a asp-controller="ShoppingCarts" asp-action="Index" class="btn btn-success">View Cart</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.OrderList.Any())
+                    {
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Order Date</th>
+                                    <th>Order Total</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.OrderList)
+                                {
+                                    <tr>
+                                        <td>@order.OrderId</td>
+                                        <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                                        <td>$@order.OrderTotal.ToString("F2")</td>
+                                        <td>
+                                            <a asp-action="GetOrderDetails" asp-route-id="@order.OrderId" asp-route-source="Index" class="btn btn-sm btn-info">Details</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No orders found.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,4 +30,23 @@ namespace SharedLibrary.DTO.Order
 			return JsonSerializer.Serialize(this);
 		}
 	}
+}
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedLibrary.DTO.Order
+{
+    public class OrderGetResponseDTO
+    {
+        public OrderGetResponseDTO()
+        {
+            OrderDetails = new List<OrderDetailGetResponseDTO>();
+        }
+
+        public string OrderId { get; set; }
+        public string UserId { get; set; }
+        public DateTime OrderDate { get; set; }
+        public decimal OrderTotal { get; set; }
+        public List<OrderDetailGetResponseDTO> OrderDetails { get; set; }
+    }
 }

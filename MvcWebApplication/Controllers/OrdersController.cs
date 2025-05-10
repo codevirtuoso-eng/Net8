@@ -8,6 +8,7 @@ using SharedLibrary.Common.Models;
 using SharedLibrary.Enums;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace MvcWebApplication.Controllers
 {
@@ -71,7 +72,7 @@ namespace MvcWebApplication.Controllers
 		{
 			_logger.LogInformation("UserOrders was called");
 			var userOrdersViewModel = new UserOrdersViewModel();
-			
+
 
 			try
 			{
@@ -106,6 +107,34 @@ namespace MvcWebApplication.Controllers
 			}
 
 			return View(getOrderDetailsViewModel);
+		}
+
+		[Authorize(Roles = "User, Admin")]
+		public async Task<IActionResult> GetOrderDetails(string id)
+		{
+			var getOrderDetailsViewModel = new GetOrderDetailsViewModel();
+
+			try
+			{
+				// Get the user ID from claims
+				var user = HttpContext.User;
+				var userId = user.Claims.First(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+
+				// Get source from query string if it exists
+				var searchSource = HttpContext.Request.Query["source"].ToString();
+				getOrderDetailsViewModel.SearchSource = string.IsNullOrEmpty(searchSource) ? "Index" : searchSource;
+
+				// Call the view function to get order details
+				await _ordersViewFunctions.GetOrderDetails(id, userId, getOrderDetailsViewModel, HttpContext);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception and return a friendly message back to the client
+				_logger.LogError(ex, "Error occurred getting order details.");
+				getOrderDetailsViewModel.Message = ex.Message;
+			}
+
+			return View("OrderDetails", getOrderDetailsViewModel);
 		}
 	}
 }
