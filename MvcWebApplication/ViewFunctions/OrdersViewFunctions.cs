@@ -332,6 +332,7 @@ namespace MvcWebApplication.ViewFunctions
 					viewModel.OrderDetails.Add(new OrderDetail
 					{
 						OrderId = orderId,
+						OrderDetailId = detailDto.OrderDetailId,
 						ItemId = detailDto.ItemId,
 						Name = detailDto.Name,
 						Cost = detailDto.Cost,

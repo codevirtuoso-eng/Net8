@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace SharedLibrary.DTO.Order
 
         [JsonPropertyName("cost")]
         public decimal Cost { get; set; }
+
+        [JsonPropertyName("quantity")]
+        public int Quantity { get; set; }
+
+        [JsonPropertyName("linetotal")]
+        public decimal LineTotal { get; set; }
 
         public override string ToString()
         {

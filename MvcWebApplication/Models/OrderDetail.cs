@@ -1,8 +1,8 @@
-
-﻿namespace MvcWebApplication.Models
+namespace MvcWebApplication.Models
 {
     public class OrderDetail
     {
+        public string OrderDetailId { get; set; } // Added OrderDetailId property
         public string OrderId { get; set; }
         public string ItemId { get; set; }
         public string Name { get; set; }
