@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MvcWebApplication.Models;
 using MvcWebApplication.ViewModels.Shopping;
 using SharedLibrary.DTO.MenuListing;
 using SharedLibrary.DTO.ShoppingCart;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -18,14 +21,34 @@ namespace MvcWebApplication.ViewFunctions
     {
         public async Task<IndexViewModel> ProcessIndexRequest(IndexViewModel model, HttpContext context)
         {
-            // Implementation for processing index request
-            return model;
+            try 
+            {
+                // Implementation for processing index request
+                // Use proper model population from APIs
+                var client = _clientFactory.CreateClient();
+                // Add implementation based on your requirements
+                return model;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing index request");
+                return model;
+            }
         }
 
         public async Task<bool> ProcessAddToCartRequest(int menuItemId, int quantity, HttpContext context)
         {
-            // Implementation for processing add to cart request
-            return true;
+            try
+            {
+                // Implementation for processing add to cart request
+                // Add HTTP requests to your API endpoints
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error adding item to cart");
+                return false;
+            }
         }
         private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
