@@ -102,10 +102,10 @@ namespace MvcWebApplication.ViewFunctions
                 {
                     menuListings.Add(new MenuListing
                     {
-                        Id = dto.Id,
+                        Id = dto.MenuItemId,
                         Name = dto.Name,
-                        Description = dto.Description,
-                        Price = dto.Price,
+                        Description = dto.MenuItemDescription,
+                        Price = dto.MenuItemPrice,
                         Category = dto.Category
                     });
                 }
@@ -128,9 +128,9 @@ namespace MvcWebApplication.ViewFunctions
 
                 var createDto = new ShoppingCartCreateRequestDTO
                 {
-                    MenuListingId = menuItemId,  // Changed from MenuItemId
+                    MenuItemId = menuItemId,
                     Quantity = quantity,
-                    UserIdentifier = userId  // Changed from UserId
+                    UserId = userId
                 };
 
                 var json = JsonSerializer.Serialize(createDto);
@@ -158,8 +158,8 @@ namespace MvcWebApplication.ViewFunctions
 
                 var removeDto = new ShoppingCartRemoveRequestDTO
                 {
-                    MenuListingId = menuItemId,  // Changed from MenuItemId
-                    UserIdentifier = userId  // Changed from UserId
+                    MenuItemId = menuItemId,
+                    UserId = userId
                 };
 
                 var json = JsonSerializer.Serialize(removeDto);
@@ -187,7 +187,7 @@ namespace MvcWebApplication.ViewFunctions
 
                 var emptyDto = new ShoppingCartEmptyRequestDTO
                 {
-                    UserIdentifier = userId  // Changed from UserId
+                    UserId = userId
                 };
 
                 var json = JsonSerializer.Serialize(emptyDto);

@@ -9,6 +9,8 @@ namespace MvcWebApplication.Models
 		[Display(Name = "Item Id")]
 		public int ItemId { get; set; }
 
+		public int Id { get; set; }
+
 		[Required]
 		[MinLength(1)]
 		[MaxLength(25)]
@@ -29,5 +31,15 @@ namespace MvcWebApplication.Models
 		[Range(0, 9999999999999999.99)]
 		[Display(Name = "Total Price")]
 		public decimal TotalPrice { get; set; }
+
+		[Required]
+		[Range(0, 9999999999999999.99)]
+		[Display(Name = "Price")]
+		public decimal Price { get; set; }
+
+		[Required]
+		[Range(0, 9999999999999999.99)]
+		[Display(Name = "Line Total")]
+		public decimal LineTotal { get; set; }
 	}
 }

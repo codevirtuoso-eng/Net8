@@ -1,27 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace MvcWebApplication.Models
 {
-	public class MenuListing
-	{
-		[Required]
-		[Display(Name = "Item Id")]
-		public int ItemId { get; set; }
+    public class MenuListing
+    {
+        public int Id { get; set; }
 
-		[Required]
-		[Display(Name = "Category")]
-		public string Category { get; set; }
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
-		[Required]
-		[MinLength(1)]
-		[MaxLength(25)]
-		[Display(Name = "Name")]
-		public string Name { get; set; }
+        [Required]
+        [Display(Name = "Description")]
+        public string Description { get; set; }
 
-		[Required]
-		[Range(0, 9999999999999999.99)]
-		[Display(Name = "Cost")]
-		public decimal Cost { get; set; }
-	}
+        [Required]
+        [Display(Name = "Price")]
+        public decimal Price { get; set; }
+
+        [Required]
+        [Display(Name = "Category")]
+        public string Category { get; set; }
+    }
 }
