@@ -1,12 +1,11 @@
-
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using MvcWebApplication.Models;
 using MvcWebApplication.ViewModels.Shopping;
 using SharedLibrary.DTO.MenuListing;
 using SharedLibrary.DTO.ShoppingCart;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -17,6 +16,17 @@ namespace MvcWebApplication.ViewFunctions
 {
     public class ShoppingViewFunctions : IShoppingViewFunctions
     {
+        public async Task<IndexViewModel> ProcessIndexRequest(IndexViewModel model, HttpContext context)
+        {
+            // Implementation for processing index request
+            return model;
+        }
+
+        public async Task<bool> ProcessAddToCartRequest(int menuItemId, int quantity, HttpContext context)
+        {
+            // Implementation for processing add to cart request
+            return true;
+        }
         private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
         private readonly ILogger<ShoppingViewFunctions> _logger;
