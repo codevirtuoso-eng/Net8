@@ -1,0 +1,112 @@
+
+Search
+Search
+
+Live tail
+GMT+3
+
+Menu
+==> Cloning from https://github.com/codevirtuoso-eng/Net8
+==> Checking out commit 5c0c5352dd99ae29ebd54c339cdc8e42ffdc0b9a in branch main
+==> Downloading cache...
+==> Transferred 932MB in 10s. Extraction took 1s.
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 363B done
+#1 DONE 0.0s
+#2 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0
+#2 ...
+#3 [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:8.0
+#3 DONE 0.7s
+#2 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0
+#2 DONE 0.7s
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+#5 [internal] load build context
+#5 DONE 0.0s
+#6 importing cache manifest from local:9582919232678878892
+#6 inferred cache manifest type: application/vnd.oci.image.index.v1+json done
+#6 DONE 0.0s
+#7 [build 1/5] FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:8ab06772f296ed5f541350334f15d9e2ce84ad4b3ce70c90f2e43db2752c30f6
+#7 resolve mcr.microsoft.com/dotnet/sdk:8.0@sha256:8ab06772f296ed5f541350334f15d9e2ce84ad4b3ce70c90f2e43db2752c30f6
+#7 resolve mcr.microsoft.com/dotnet/sdk:8.0@sha256:8ab06772f296ed5f541350334f15d9e2ce84ad4b3ce70c90f2e43db2752c30f6 0.0s done
+#7 DONE 0.0s
+#8 [runtime 1/3] FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6159cf66274cf52730d7a0c7bb05cf0af94b79370176886ac58286ab6cbb7faf
+#8 resolve mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6159cf66274cf52730d7a0c7bb05cf0af94b79370176886ac58286ab6cbb7faf 0.0s done
+#8 DONE 0.0s
+#5 [internal] load build context
+#5 transferring context: 90.92MB 1.3s done
+#5 DONE 1.4s
+#9 [build 2/5] WORKDIR /src
+#9 sha256:254e724d77862dc53abbd3bf0e27f9d2f64293909cdd3d0aad6a8fe5a6680659 28.23MB / 28.23MB 0.2s done
+#9 extracting sha256:254e724d77862dc53abbd3bf0e27f9d2f64293909cdd3d0aad6a8fe5a6680659
+#9 extracting sha256:254e724d77862dc53abbd3bf0e27f9d2f64293909cdd3d0aad6a8fe5a6680659 0.8s done
+#9 sha256:9acf2fcaffb06a804c18d5d7f7d226b76b78e1f1732f75aea4eeacadea074560 18.72MB / 18.72MB 0.2s done
+#9 extracting sha256:9acf2fcaffb06a804c18d5d7f7d226b76b78e1f1732f75aea4eeacadea074560
+#9 extracting sha256:9acf2fcaffb06a804c18d5d7f7d226b76b78e1f1732f75aea4eeacadea074560 1.3s done
+#9 sha256:a29ab1a77506908a84d3f4b2d65d59d10921754891b1441e6684fba11a83c92d 3.28kB / 3.28kB done
+#9 extracting sha256:a29ab1a77506908a84d3f4b2d65d59d10921754891b1441e6684fba11a83c92d 0.1s done
+#9 sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb 18.87MB / 32.25MB 0.2s
+#9 sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb 32.25MB / 32.25MB 0.3s done
+#9 extracting sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb
+#9 extracting sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb 0.5s done
+#9 sha256:c18ba63153554dcdc7be54d648fad52670e6505c480118b3baaadad486544619 153B / 153B done
+#9 extracting sha256:c18ba63153554dcdc7be54d648fad52670e6505c480118b3baaadad486544619 0.0s done
+#9 sha256:fc751fa5c1b7f45ea375eb81a48a2c1505db61ce7d141e36735ef30ed2c66c1f 11.07MB / 11.07MB 0.1s done
+#9 extracting sha256:fc751fa5c1b7f45ea375eb81a48a2c1505db61ce7d141e36735ef30ed2c66c1f
+#9 extracting sha256:fc751fa5c1b7f45ea375eb81a48a2c1505db61ce7d141e36735ef30ed2c66c1f 0.2s done
+#9 sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c 22.02MB / 30.88MB 0.2s
+#9 sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c 30.88MB / 30.88MB 0.2s done
+#9 extracting sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c
+#9 extracting sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c 0.9s done
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 20.97MB / 174.07MB 0.2s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 40.89MB / 174.07MB 0.3s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 57.67MB / 174.07MB 0.5s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 77.59MB / 174.07MB 0.6s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 95.42MB / 174.07MB 0.8s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 115.34MB / 174.07MB 0.9s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 133.17MB / 174.07MB 1.1s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 153.09MB / 174.07MB 1.2s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 170.92MB / 174.07MB 1.4s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 174.07MB / 174.07MB 1.8s done
+#9 extracting sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04
+#9 extracting sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 4.7s done
+#9 sha256:db54c77230ca02f972d018216bb734b9cfa008674aa8a7ab8e7892c046e8c61c 2.65kB / 2.65kB done
+#9 extracting sha256:db54c77230ca02f972d018216bb734b9cfa008674aa8a7ab8e7892c046e8c61c 0.0s done
+#9 sha256:5357fc0834b6b0a1000467c98dcac2d3acc8bca96f91042785e7e28504703bb1 15.79MB / 15.79MB 0.1s done
+#9 extracting sha256:5357fc0834b6b0a1000467c98dcac2d3acc8bca96f91042785e7e28504703bb1
+#9 extracting sha256:5357fc0834b6b0a1000467c98dcac2d3acc8bca96f91042785e7e28504703bb1 0.4s done
+#9 sha256:70aec82bf16f27fbf17245b43e48f2c1556510e430921aa309c0f9cab78fec63 92B / 92B done
+#9 extracting sha256:70aec82bf16f27fbf17245b43e48f2c1556510e430921aa309c0f9cab78fec63 0.0s done
+#9 CACHED
+#10 [build 3/5] COPY . .
+#10 DONE 0.7s
+#11 [build 4/5] WORKDIR /src/MvcWebApplication
+#11 DONE 0.0s
+#12 [build 5/5] RUN dotnet publish -c Release -o /app/publish
+#12 0.784   Determining projects to restore...
+#12 1.865   Restored /src/SharedLibrary/SharedLibrary.csproj (in 99 ms).
+#12 6.529   Restored /src/DatabaseAccess/DatabaseAccess.csproj (in 4.75 sec).
+#12 21.26   Restored /src/MvcWebApplication/MvcWebApplication.csproj (in 19.49 sec).
+#12 22.35 /src/SharedLibrary/DTO/Order/OrderGetResponseDTO.cs(34,2): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations [/src/SharedLibrary/SharedLibrary.csproj]
+#12 22.35 /src/SharedLibrary/DTO/Order/OrderGetResponseDTO.cs(35,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations [/src/SharedLibrary/SharedLibrary.csproj]
+#12 ERROR: process "/bin/sh -c dotnet publish -c Release -o /app/publish" did not complete successfully: exit code: 1
+------
+ > [build 5/5] RUN dotnet publish -c Release -o /app/publish:
+0.784   Determining projects to restore...
+1.865   Restored /src/SharedLibrary/SharedLibrary.csproj (in 99 ms).
+6.529   Restored /src/DatabaseAccess/DatabaseAccess.csproj (in 4.75 sec).
+21.26   Restored /src/MvcWebApplication/MvcWebApplication.csproj (in 19.49 sec).
+22.35 /src/SharedLibrary/DTO/Order/OrderGetResponseDTO.cs(34,2): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations [/src/SharedLibrary/SharedLibrary.csproj]
+22.35 /src/SharedLibrary/DTO/Order/OrderGetResponseDTO.cs(35,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations [/src/SharedLibrary/SharedLibrary.csproj]
+------
+Dockerfile:6
+--------------------
+   4 |     COPY . .
+   5 |     WORKDIR /src/MvcWebApplication
+   6 | >>> RUN dotnet publish -c Release -o /app/publish
+   7 |     
+   8 |     # Stage 2: Run
+--------------------
+error: failed to solve: process "/bin/sh -c dotnet publish -c Release -o /app/publish" did not complete successfully: exit code: 1
+error: exit status 1
