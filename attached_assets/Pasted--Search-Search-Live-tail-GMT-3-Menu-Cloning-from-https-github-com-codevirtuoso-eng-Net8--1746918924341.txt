@@ -1,0 +1,121 @@
+
+Search
+Search
+
+Live tail
+GMT+3
+
+Menu
+==> Cloning from https://github.com/codevirtuoso-eng/Net8
+==> Checking out commit da330d76e6765cc2d09bbe2fa6c60d41566b03fa in branch main
+==> Downloading cache...
+==> Transferred 932MB in 10s. Extraction took 1s.
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 363B done
+#1 DONE 0.0s
+#2 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0
+#2 ...
+#3 [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:8.0
+#3 DONE 0.5s
+#2 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0
+#2 DONE 0.7s
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+#5 importing cache manifest from local:9582919232678878892
+#5 inferred cache manifest type: application/vnd.oci.image.index.v1+json done
+#5 DONE 0.0s
+#6 [build 1/5] FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:8ab06772f296ed5f541350334f15d9e2ce84ad4b3ce70c90f2e43db2752c30f6
+#6 resolve mcr.microsoft.com/dotnet/sdk:8.0@sha256:8ab06772f296ed5f541350334f15d9e2ce84ad4b3ce70c90f2e43db2752c30f6 0.0s done
+#6 DONE 0.0s
+#7 [runtime 1/3] FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6159cf66274cf52730d7a0c7bb05cf0af94b79370176886ac58286ab6cbb7faf
+#7 resolve mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6159cf66274cf52730d7a0c7bb05cf0af94b79370176886ac58286ab6cbb7faf 0.0s done
+#7 DONE 0.0s
+#8 [internal] load build context
+#8 transferring context: 90.95MB 1.4s done
+#8 DONE 1.4s
+#9 [build 2/5] WORKDIR /src
+#9 sha256:254e724d77862dc53abbd3bf0e27f9d2f64293909cdd3d0aad6a8fe5a6680659 28.23MB / 28.23MB 0.2s done
+#9 extracting sha256:254e724d77862dc53abbd3bf0e27f9d2f64293909cdd3d0aad6a8fe5a6680659
+#9 extracting sha256:254e724d77862dc53abbd3bf0e27f9d2f64293909cdd3d0aad6a8fe5a6680659 0.7s done
+#9 sha256:9acf2fcaffb06a804c18d5d7f7d226b76b78e1f1732f75aea4eeacadea074560 18.72MB / 18.72MB 0.1s done
+#9 extracting sha256:9acf2fcaffb06a804c18d5d7f7d226b76b78e1f1732f75aea4eeacadea074560
+#9 extracting sha256:9acf2fcaffb06a804c18d5d7f7d226b76b78e1f1732f75aea4eeacadea074560 1.2s done
+#9 sha256:a29ab1a77506908a84d3f4b2d65d59d10921754891b1441e6684fba11a83c92d 3.28kB / 3.28kB done
+#9 extracting sha256:a29ab1a77506908a84d3f4b2d65d59d10921754891b1441e6684fba11a83c92d 0.1s done
+#9 sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb 32.25MB / 32.25MB 0.3s done
+#9 extracting sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb
+#9 extracting sha256:7f5a3171e53f02b00fecce1a7e8b50a876ec012db77862c3da366f2a6dd8a4bb 2.4s done
+#9 sha256:c18ba63153554dcdc7be54d648fad52670e6505c480118b3baaadad486544619 153B / 153B done
+#9 extracting sha256:c18ba63153554dcdc7be54d648fad52670e6505c480118b3baaadad486544619
+#9 extracting sha256:c18ba63153554dcdc7be54d648fad52670e6505c480118b3baaadad486544619 0.4s done
+#9 sha256:fc751fa5c1b7f45ea375eb81a48a2c1505db61ce7d141e36735ef30ed2c66c1f 11.07MB / 11.07MB 0.1s done
+#9 extracting sha256:fc751fa5c1b7f45ea375eb81a48a2c1505db61ce7d141e36735ef30ed2c66c1f
+#9 extracting sha256:fc751fa5c1b7f45ea375eb81a48a2c1505db61ce7d141e36735ef30ed2c66c1f 0.2s done
+#9 sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c 30.88MB / 30.88MB 0.2s done
+#9 extracting sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c
+#9 extracting sha256:52dc65d6d9fa4cf0ea1ca43df3a367a3a70978ec4eb98f52101146ccf2b03b4c 10.5s done
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 19.92MB / 174.07MB 0.2s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 36.70MB / 174.07MB 0.3s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 75.50MB / 174.07MB 0.6s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 113.25MB / 174.07MB 0.9s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 134.22MB / 174.07MB 1.1s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 150.99MB / 174.07MB 1.2s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 170.92MB / 174.07MB 1.4s
+#9 sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 174.07MB / 174.07MB 3.5s done
+#9 extracting sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04
+#9 extracting sha256:ec5a6c47e8101ee37d3d7ed1ce7631098bd3519172fe9c607ed4c8ad410deb04 17.1s done
+#9 sha256:db54c77230ca02f972d018216bb734b9cfa008674aa8a7ab8e7892c046e8c61c 2.65kB / 2.65kB done
+#9 extracting sha256:db54c77230ca02f972d018216bb734b9cfa008674aa8a7ab8e7892c046e8c61c 0.0s done
+#9 sha256:5357fc0834b6b0a1000467c98dcac2d3acc8bca96f91042785e7e28504703bb1 15.79MB / 15.79MB 0.1s done
+#9 extracting sha256:5357fc0834b6b0a1000467c98dcac2d3acc8bca96f91042785e7e28504703bb1
+#9 extracting sha256:5357fc0834b6b0a1000467c98dcac2d3acc8bca96f91042785e7e28504703bb1 0.3s done
+#9 sha256:70aec82bf16f27fbf17245b43e48f2c1556510e430921aa309c0f9cab78fec63 92B / 92B done
+#9 extracting sha256:70aec82bf16f27fbf17245b43e48f2c1556510e430921aa309c0f9cab78fec63 0.0s done
+#9 CACHED
+#10 [build 3/5] COPY . .
+#10 DONE 0.7s
+#11 [build 4/5] WORKDIR /src/MvcWebApplication
+#11 DONE 0.0s
+#12 [build 5/5] RUN dotnet publish -c Release -o /app/publish
+#12 0.792   Determining projects to restore...
+#12 1.925   Restored /src/SharedLibrary/SharedLibrary.csproj (in 122 ms).
+#12 6.607   Restored /src/DatabaseAccess/DatabaseAccess.csproj (in 4.81 sec).
+#12 20.52   Restored /src/MvcWebApplication/MvcWebApplication.csproj (in 18.44 sec).
+#12 24.65   SharedLibrary -> /src/SharedLibrary/bin/Release/net8.0/SharedLibrary.dll
+#12 25.73 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(53,31): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+#12 25.73 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(60,43): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+#12 25.73 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(67,21): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+#12 25.82   DatabaseAccess -> /src/DatabaseAccess/bin/Release/net8.0/DatabaseAccess.dll
+#12 30.45 /src/MvcWebApplication/ViewModels/Shopping/IndexViewModel.cs(15,17): warning CS0108: 'IndexViewModel.Message' hides inherited member 'BaseViewModel.Message'. Use the new keyword if hiding was intended. [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(21,43): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(38,33): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/Controllers/OrdersController.cs(50,36): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/Controllers/OrdersController.cs(71,36): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/ViewFunctions/HomeViewFunctions.cs(79,50): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/ViewFunctions/OrdersViewFunctions.cs(181,16): error CS0029: Cannot implicitly convert type 'int' to 'string' [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 30.45 /src/MvcWebApplication/ViewFunctions/OrdersViewFunctions.cs(336,16): error CS0029: Cannot implicitly convert type 'int' to 'string' [/src/MvcWebApplication/MvcWebApplication.csproj]
+#12 ERROR: process "/bin/sh -c dotnet publish -c Release -o /app/publish" did not complete successfully: exit code: 1
+------
+ > [build 5/5] RUN dotnet publish -c Release -o /app/publish:
+25.73 /src/DatabaseAccess/Data/DataAccess/OrderData.cs(67,21): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/DatabaseAccess/DatabaseAccess.csproj]
+25.82   DatabaseAccess -> /src/DatabaseAccess/bin/Release/net8.0/DatabaseAccess.dll
+30.45 /src/MvcWebApplication/ViewModels/Shopping/IndexViewModel.cs(15,17): warning CS0108: 'IndexViewModel.Message' hides inherited member 'BaseViewModel.Message'. Use the new keyword if hiding was intended. [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(21,43): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/ViewFunctions/ShoppingViewFunctions.cs(38,33): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/Controllers/OrdersController.cs(50,36): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/Controllers/OrdersController.cs(71,36): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/ViewFunctions/HomeViewFunctions.cs(79,50): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread. [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/ViewFunctions/OrdersViewFunctions.cs(181,16): error CS0029: Cannot implicitly convert type 'int' to 'string' [/src/MvcWebApplication/MvcWebApplication.csproj]
+30.45 /src/MvcWebApplication/ViewFunctions/OrdersViewFunctions.cs(336,16): error CS0029: Cannot implicitly convert type 'int' to 'string' [/src/MvcWebApplication/MvcWebApplication.csproj]
+------
+Dockerfile:6
+--------------------
+   4 |     COPY . .
+   5 |     WORKDIR /src/MvcWebApplication
+   6 | >>> RUN dotnet publish -c Release -o /app/publish
+   7 |     
+   8 |     # Stage 2: Run
+--------------------
+error: failed to solve: process "/bin/sh -c dotnet publish -c Release -o /app/publish" did not complete successfully: exit code: 1
+error: exit status 1
