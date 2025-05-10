@@ -1,0 +1,9 @@
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.csproj.AssemblyReference.cache
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.AssemblyInfoInputs.cache
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.AssemblyInfo.cs
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.csproj.CoreCompileInputs.cache
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.MvcApplicationPartsAssemblyInfo.cache
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.RazorAssemblyInfo.cache
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.RazorAssemblyInfo.cs
+/home/runner/workspace/MvcWebApplication/obj/Debug/net8.0/MvcWebApplication.sourcelink.json

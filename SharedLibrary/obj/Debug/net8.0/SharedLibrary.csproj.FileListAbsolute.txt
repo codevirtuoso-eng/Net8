@@ -1,0 +1,12 @@
+/home/runner/workspace/SharedLibrary/bin/Debug/net8.0/SharedLibrary.deps.json
+/home/runner/workspace/SharedLibrary/bin/Debug/net8.0/SharedLibrary.dll
+/home/runner/workspace/SharedLibrary/bin/Debug/net8.0/SharedLibrary.pdb
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfoInputs.cache
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.csproj.CoreCompileInputs.cache
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.sourcelink.json
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.dll
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/refint/SharedLibrary.dll
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/SharedLibrary.pdb
+/home/runner/workspace/SharedLibrary/obj/Debug/net8.0/ref/SharedLibrary.dll

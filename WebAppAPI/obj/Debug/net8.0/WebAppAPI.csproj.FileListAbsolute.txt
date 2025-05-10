@@ -1,0 +1,8 @@
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.csproj.AssemblyReference.cache
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.AssemblyInfoInputs.cache
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.AssemblyInfo.cs
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.csproj.CoreCompileInputs.cache
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.MvcApplicationPartsAssemblyInfo.cs
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.MvcApplicationPartsAssemblyInfo.cache
+/home/runner/workspace/WebAppAPI/obj/Debug/net8.0/WebAppAPI.sourcelink.json
