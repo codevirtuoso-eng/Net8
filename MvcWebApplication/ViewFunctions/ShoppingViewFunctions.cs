@@ -101,13 +101,14 @@ namespace MvcWebApplication.ViewFunctions
                 {
                     menuListings.Add(new MenuListing
                     {
-                        Id = dto.Id,
-                        ItemId = dto.Id,
+                        ItemId = dto.ItemId,
                         Name = dto.Name,
-                        Description = dto.Description,
-                        Price = dto.Price,
-                        Cost = dto.Price,
-                        Category = dto.Category
+                        Cost = dto.Cost,
+                        Category = dto.Category,
+                        // Set defaults for properties not in DTO
+                        Id = dto.ItemId, // Use ItemId as Id
+                        Description = dto.Name, // Use Name as default description
+                        Price = dto.Cost // Use Cost as Price
                     });
                 }
 
