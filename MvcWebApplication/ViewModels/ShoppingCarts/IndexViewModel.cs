@@ -1,3 +1,4 @@
+
 using MvcWebApplication.Models;
 using System.Collections.Generic;
 
@@ -12,6 +13,7 @@ namespace MvcWebApplication.ViewModels.ShoppingCarts
 
 		public List<ShoppingCartItem> CartItems { get; set; }
 		public decimal TotalAmount { get; set; }
-		public string Message { get; set; }
+		public decimal CartTotal { get; set; }
+		public new string Message { get; set; }
 	}
 }

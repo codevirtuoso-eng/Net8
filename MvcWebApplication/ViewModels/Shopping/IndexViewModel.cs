@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcWebApplication.Models;
 using SharedLibrary.Common.Models;
@@ -10,9 +11,11 @@ namespace MvcWebApplication.ViewModels.Shopping
 		public IndexViewModel()
 		{
 			MenuItems = new List<MenuListing>();
+			MenuListings = new List<MenuListing>();
 		}
 
 		public List<MenuListing> MenuItems { get; set; }
-		public string Message { get; set; }
+		public List<MenuListing> MenuListings { get; set; }
+		public new string Message { get; set; }
 	}
 }

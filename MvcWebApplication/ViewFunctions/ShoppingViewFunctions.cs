@@ -13,7 +13,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace MvcWebApplication.ViewFunctions
 {
@@ -102,10 +101,12 @@ namespace MvcWebApplication.ViewFunctions
                 {
                     menuListings.Add(new MenuListing
                     {
-                        Id = dto.MenuItemId,
+                        Id = dto.Id,
+                        ItemId = dto.Id,
                         Name = dto.Name,
-                        Description = dto.MenuItemDescription,
-                        Price = dto.MenuItemPrice,
+                        Description = dto.Description,
+                        Price = dto.Price,
+                        Cost = dto.Price,
                         Category = dto.Category
                     });
                 }

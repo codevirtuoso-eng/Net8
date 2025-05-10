@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,24 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.DTO.ShoppingCart
 {
+	public class CartItemDTO
+	{
+		[JsonPropertyName("menulistingid")]
+		public int MenuListingId { get; set; }
+
+		[JsonPropertyName("name")]
+		public string Name { get; set; }
+
+		[JsonPropertyName("price")]
+		public decimal Price { get; set; }
+
+		[JsonPropertyName("quantity")]
+		public int Quantity { get; set; }
+	}
+
 	public class ShoppingCartGetResponseDTO
 	{
-		[JsonPropertyName("cartid")] // helps with de-serialization
+		[JsonPropertyName("cartid")] 
 		public int CartId { get; set; }
 
 		[JsonPropertyName("userid")]
@@ -27,6 +43,9 @@ namespace SharedLibrary.DTO.ShoppingCart
 
 		[JsonPropertyName("cost")]
 		public decimal Cost { get; set; }
+
+		[JsonPropertyName("items")]
+		public List<CartItemDTO> Items { get; set; } = new List<CartItemDTO>();
 
 		public override string ToString()
 		{
