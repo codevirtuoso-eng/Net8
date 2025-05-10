@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.8" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="Moq.Contrib.HttpClient" Version="1.4.0" />
+    <PackageReference Include="NUnit" Version="4.1.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseAccess\DatabaseAccess.csproj" />
+    <ProjectReference Include="..\MvcWebApplication\MvcWebApplication.csproj" />
+    <ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
+    <ProjectReference Include="..\WebAppAPI\WebAppAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ModelValidationTests\DTOs\ShoppingCartTests\" />
+    <Folder Include="WebApiTests\MenuListingControllerTests\" />
+    <Folder Include="WebApiTests\ShoppingCartControllerTests\" />
+    <Folder Include="WebAppTests\HomeControllerTests\" />
+    <Folder Include="WebAppTests\MenuListingControllerTests\" />
+    <Folder Include="WebAppTests\ShoppingControllerTests\" />
+  </ItemGroup>
+
+</Project>

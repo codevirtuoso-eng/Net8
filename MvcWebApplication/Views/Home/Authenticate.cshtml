@@ -1,0 +1,48 @@
+﻿@model MvcWebApplication.ViewModels.Home.HomeLoginViewModel
+
+@{
+	ViewData["Title"] = "Login";
+}
+
+<h4>Login</h4>
+
+@{
+	if (Model.Message.Length > 0)
+	{
+		<div class="text-danger">@Model.Message</div>
+	}
+}
+
+@if (Model.UserLogin.IsAuthenticated)
+{
+	<div>
+		You have successfully logged in.
+	</div>
+}
+else
+{
+	<form id="Authenticate" asp-controller="Home" asp-action="Authenticate" method='POST' autocomplete="off">
+		<div>
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<dl class="row">
+				<dt class="col-sm-2">
+					<label asp-for=UserLogin.UserName></label>
+				</dt>
+				<dd class="col-sm-10">
+					<input asp-for=UserLogin.UserName />
+					<span asp-validation-for="UserLogin.UserName" class="text-danger"></span>
+				</dd>
+				<dt class="col-sm-2">
+					<label asp-for=UserLogin.UserPassword></label>
+				</dt>
+				<dd class="col-sm-10">
+					<input type="password" asp-for=UserLogin.UserPassword />
+					<span asp-validation-for="UserLogin.UserPassword" class="text-danger"></span>
+				</dd>
+			</dl>
+		</div>
+		<div style="padding-top: 3px;">
+			<button type="submit">Login</button>
+		</div>
+	</form>
+}

@@ -1,0 +1,78 @@
+﻿@model MvcWebApplication.ViewModels.MenuListings.IndexViewModel
+
+@{
+	ViewData["Title"] = "Manage Menu Listings";
+}
+
+<h4>Manage Menu Listings</h4>
+
+@{
+	if (!string.IsNullOrEmpty(Model.Message))
+	{
+		<div class="text-danger">@Model.Message</div>
+	}
+}
+
+<p>
+	<a asp-action="New">Create New</a>
+</p>
+<form asp-action="Search" method="post">
+	<div class="form-group">
+		<div class="divInline">
+			<label asp-for="MenuListingSearch.Category" class="control-label"></label>
+			<select asp-for="MenuListingSearch.Category" asp-items="Model.CategoryList" class="form-select inputInline">
+				<option value=""></option>
+			</select>
+			<button type="submit">Search</button>
+		</div>
+	</div>
+</form>
+
+@if (Model.MenuListingList.Count > 0)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Item Id</th>
+				<th>Name</th>
+				<th>Category</th>
+				<th>Cost</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.MenuListingList)
+			{
+				<tr>
+					<td>
+						@item.ItemId
+					</td>
+					<td>
+						@item.Name
+					</td>
+					<td>
+						@item.Category
+					</td>
+					<td>
+						@item.Cost.ToString("C2")
+					</td>
+					<td>
+						<!-- asp-route-* attribute defines a GET parameter when calling a controller endpoint -->
+						<a asp-action="Edit" asp-controller="MenuListings" asp-route-itemId="@item.ItemId">Edit</a>
+						<a asp-action="Delete" asp-controller="MenuListings" asp-route-itemId="@item.ItemId">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<table class="displayList">
+		<tr>
+			<td style="width:100%;">
+				There are no menu listings.
+			</td>
+		</tr>
+	</table>
+}

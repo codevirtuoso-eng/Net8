@@ -1,0 +1,78 @@
+﻿@using SharedLibrary.Enums
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - MvcWebApplication</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcWebApplication</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul id="userMenu" style="float:left" class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						</li>
+						@if (User.Identity.IsAuthenticated && (User.IsInRole(Roles.User.ToString())))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="Shopping" asp-action="Index">Shop</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="Orders" asp-action="Index">Orders</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark">View Cart</a>
+							</li>
+						}
+					</ul>
+					<ul id="adminMenu" style="float:right" class="navbar-nav flex-grow-1">
+						@if (User.Identity.IsAuthenticated && (User.IsInRole(Roles.Admin.ToString())))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-controller="MenuListings" asp-action="Index">Menu Listing</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark">User Orders</a>
+							</li>
+						}
+					</ul>
+					@if (!User.Identity.IsAuthenticated)
+					{
+						<a asp-controller="Home" asp-action="Login">Login</a>
+					}
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2022 - MvcWebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+	<!-- In case any page needs to pull up a modal, it needs to be at a higher level than other elements -->
+	<div id="modal-placeholder"></div>
+</body>
+</html>
