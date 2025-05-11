@@ -9,7 +9,7 @@ channel = "stable-24_05"
 run = ["sh", "-c", "dotnet run"]
 
 [workflows]
-runButton = "Run MVC Application"
+runButton = "Run Full Stack"
 
 [[workflows.workflow]]
 name = "Run WebAppAPI"
@@ -74,6 +74,39 @@ args = "dotnet build"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd MvcWebApplication"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet run --urls=http://0.0.0.0:5000"
+
+[[workflows.workflow]]
+name = "Run Full Stack"
+author = 33598459
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "export PATH=\"$PATH:/home/runner/.dotnet/tools\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet restore"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet build"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd WebAppAPI"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet run --urls=http://0.0.0.0:5001 &"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd ../MvcWebApplication"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
