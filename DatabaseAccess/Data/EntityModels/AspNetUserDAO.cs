@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 
@@ -16,6 +16,8 @@ namespace DatabaseAccess.Data.EntityModels
 
         [Column("UserPassword")]
         public string UserPassword { get; set; }
+        public string Email { get; set; }
+        public bool EmailConfirmed { get; set; }
 
         public override string ToString()
         {

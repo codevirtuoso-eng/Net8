@@ -1,12 +1,13 @@
-﻿using DatabaseAccess.Data.Context;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DatabaseAccess.Data.Context;
 using DatabaseAccess.Data.EntityModels;
 using DatabaseAccess.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SharedLibrary.Common.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DatabaseAccess.Data.DataAccess
 {
@@ -72,5 +73,48 @@ namespace DatabaseAccess.Data.DataAccess
 			// In other words, make all of the LINQ calls before calling SaveChanges()
 			throw new System.NotImplementedException();
 		}
-	}
+
+        public async Task<OrderDAO> GetOrderAsync(string orderId)
+        {
+            _logger.LogInformation($"GetOrderAsync was called with orderId : {orderId}");
+
+            return await GetOrderByIdQuery(orderId);
+        }
+
+        private async Task<OrderDAO> GetOrderByIdQuery(string orderId)
+        {
+            _logger.LogInformation($"GetOrderByIdQuery was called with orderId : {orderId}");
+
+            var query = _mainAppDbContext.Orders.AsQueryable();
+            query = query.Where(x => x.Id == orderId);
+            var result = await query.FirstOrDefaultAsync();
+
+            return result;
+        }
+
+        public async Task<List<OrderDAO>> GetOrdersByUserIdAsync(string userId, DateTime? beginOrderDate = null, DateTime? endOrderDate = null)
+        {
+            _logger.LogInformation($"GetOrdersByUserIdAsync was called with userId: {userId}");
+
+            var query = _mainAppDbContext.Orders.AsQueryable();
+            if (!string.IsNullOrEmpty(userId))
+            {
+                query = query.Where(x => x.UserId == userId);
+            }
+
+            if (beginOrderDate != null)
+            {
+                query = query.Where(x => x.OrderDate >= beginOrderDate);
+            }
+
+            if (endOrderDate != null)
+            {
+                query = query.Where(x => x.OrderDate <= endOrderDate);
+            }
+
+            var result = await query.OrderByDescending(x => x.OrderDate).ToListAsync();
+
+            return result;
+        }
+    }
 }
