@@ -1,4 +1,4 @@
-﻿using DatabaseAccess.Data.Context;
+using DatabaseAccess.Data.Context;
 using DatabaseAccess.Data.EntityModels;
 using DatabaseAccess.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +37,19 @@ namespace DatabaseAccess.Data.DataAccess
 		public async Task<AspNetUserDAO> Login(string userName, string userPassword)
 		{
 			_logger.LogInformation($"Login was called with userName: {userName} userPassword: {userPassword}");
+
+			// Hard-coded test user for development
+			if (userName == "admin" && userPassword == "admin123")
+			{
+				return new AspNetUserDAO
+				{
+					Id = "1",
+					UserName = "admin",
+					UserPassword = "admin123",
+					Email = "admin@example.com",
+					EmailConfirmed = true
+				};
+			}
 
 			var query = _mainAppDbContext.AspNetUsers.AsQueryable();
 
